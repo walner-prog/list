@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'aos/dist/aos.css'; // Importar los estilos de AOS
-import AOS from 'aos'; // Importar la funcionalidad de AOS
+//import AOS from 'aos'; // Importar la funcionalidad de AOS
 import ProductForm from './ProductForm';
 import ProductList from './ProductList';
 
