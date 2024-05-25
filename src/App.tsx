@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'aos/dist/aos.css'; // Importar los estilos de AOS
-//import AOS from 'aos'; // Importar la funcionalidad de AOS
+import Aos from 'aos'; // Importar la funcionalidad de AOS
 import ProductForm from './ProductForm';
 import ProductList from './ProductList';
 
@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    AOS.init({
+    Aos.init({
       duration: 1000, // Duración de 1 segundo
       once: true,     // Animar solo una vez
     });
