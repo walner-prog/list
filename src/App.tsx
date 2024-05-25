@@ -1,8 +1,11 @@
+// src/App.tsx
 import React, { useState, useEffect } from 'react';
-import 'aos/dist/aos.css'; // Importar los estilos de AOS
-import Aos from 'aos'; // Importar la funcionalidad de AOS
+import 'aos/dist/aos.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import AOS from 'aos';
 import ProductForm from './ProductForm';
 import ProductList from './ProductList';
+import LoadingScreen from './LoadingScreen';
 
 interface Product {
   name: string;
@@ -11,12 +14,18 @@ interface Product {
 
 const App: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Aos.init({
-      duration: 1000, // Duración de 1 segundo
-      once: true,     // Animar solo una vez
+    AOS.init({
+      duration: 1000,
+      once: true,
     });
+
+    // Simula un retraso en la carga de la página
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Cambia este valor al tiempo que necesites
   }, []);
 
   const addProduct = (product: Product) => {
@@ -26,17 +35,25 @@ const App: React.FC = () => {
   const total = products.reduce((sum, product) => sum + product.price, 0);
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4 text-white">Lista de Pagos de Productos</h1>
-      <div className="row justify-content-center">
-        <div className="col-md-6" data-aos="fade-up">
-          <ProductForm addProduct={addProduct} total={total} />
+    <>
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <div className="container mt-5">
+          <div className=" text-white text-center py-4 mb-4 rounded">
+            <h1 className="display-4">Lista de Pagos de Productos</h1>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-md-6" data-aos="fade-up">
+              <ProductForm addProduct={addProduct} total={total} />
+            </div>
+          </div>
+          <div data-aos="fade-up">
+            <ProductList products={products} />
+          </div>
         </div>
-      </div>
-      <div data-aos="fade-up">
-        <ProductList products={products} />
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

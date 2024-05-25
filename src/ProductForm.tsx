@@ -30,6 +30,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ addProduct, total }) => {
         <label className="form-label fw-bold" data-aos="fade-right">Nombre del Producto</label>
         <input
           type="text"
+          placeholder="Ingresa el producto"
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="form-control"
@@ -39,14 +40,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ addProduct, total }) => {
         <label className="form-label fw-bold" data-aos="fade-right">Precio</label>
         <input
           type="text"
+          placeholder="Ingresa el precio"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className="form-control" required 
+          className={`form-control ${error ? 'is-invalid' : ''}`} required 
         />
-        {error && <small className="text-danger">{error}</small>}
+        {error && <div className="invalid-feedback">{error}</div>}
       </div>
-      <button type="submit" className="btn btn-success" data-aos="fade-up">
-        Guardar Producto
+      <button type="submit" className="btn btn-success w-100" data-aos="fade-up">
+        <i className="fas fa-save me-2"></i>Guardar Producto
       </button>
     </form>
   );
